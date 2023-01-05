@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import FinanceService from '@/service/FinanceService'
+
+const value = FinanceService.getFirstData()
 </script>
 
 <template>
