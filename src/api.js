@@ -14,7 +14,10 @@ class API {
   }
 
   async get(url) {
-    return await this.api.get(url).then((response) => response.data);
+    return await this.api
+      .get(url)
+      .then((response) => response.data)
+      .catch((err) => err);
   }
 }
 

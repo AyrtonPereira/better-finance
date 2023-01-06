@@ -2,24 +2,18 @@
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import FinanceService from '@/service/FinanceService'
+import { onMounted } from 'vue'
+import Header from '@/components/layout/Header.vue'
 
-const value = FinanceService.getFirstData()
+
+onMounted(async () => {
+  const value = await FinanceService.getFirstData()
+  console.log(value)
+})
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
   <RouterView />
 </template>
 
