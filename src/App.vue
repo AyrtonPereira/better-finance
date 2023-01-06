@@ -1,16 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import FinanceService from '@/service/FinanceService'
-import { onMounted } from 'vue'
-import Header from '@/components/layout/Header.vue'
-
-
-onMounted(async () => {
-  const value = await FinanceService.getFirstData()
-  console.log(value)
-})
-
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
