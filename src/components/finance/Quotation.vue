@@ -17,6 +17,7 @@ const valueParsed = computed(() => {
 </script>
 <template>
   <div
+    v-if="props.name"
     class="flex flex-col items-center text-white bg-black/70 rounded py-2 px-4 text-center justify-around"
   >
     <p class="mt-3 mb-2">
