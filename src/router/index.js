@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import App from "@/views/app/Index.vue";
 import Initiate from "@/views/initiate/Index.vue";
 import InitiateLogin from "@/views/initiate/Login.vue";
+import InitiateRegister from "@/views/initiate/Register.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +26,11 @@ const router = createRouter({
           path: "/initiate/login",
           name: "initiate.login",
           component: InitiateLogin,
+        },
+        {
+          path: "/initiate/register",
+          name: "initiate.register",
+          component: InitiateRegister,
         },
       ],
     },

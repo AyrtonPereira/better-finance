@@ -17,7 +17,8 @@ export default {
       const userIndex = state.users.findIndex(
         (stateUser) => stateUser.email === user.email
       );
-      state.users[userIndex] = user;
+      if (userIndex === -1) state.users = [...state.users, user];
+      else state.users[userIndex] = user;
     },
   },
   actions: {
