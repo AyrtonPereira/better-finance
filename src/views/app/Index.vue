@@ -1,7 +1,5 @@
 <template>
-  <main id="better-finance-initiate">
-    <h1>Dashboard</h1>
+  <main id="better-finance-app">
     <RouterView />
   </main>
-
 </template>

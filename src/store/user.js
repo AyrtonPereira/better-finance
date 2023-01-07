@@ -11,6 +11,7 @@ export default {
         token: null,
       },
     ],
+    userLogged: {},
   },
   mutations: {
     setUser(state, user) {
@@ -24,7 +25,6 @@ export default {
   actions: {
     updateUser({ commit, state }, user) {
       commit("setUser", user);
-      console.log(state);
     },
   },
   getters: {

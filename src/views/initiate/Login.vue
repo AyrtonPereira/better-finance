@@ -22,7 +22,7 @@ const verifyLogin = async () => {
 
   const login = await UserService.login(state.email, state.password);
   if (!login.data) state.errorMessage = login.message;
-  else route.push({ name: "home" });
+  else route.push({ name: "app" });
   state.loading = false;
 };
 </script>

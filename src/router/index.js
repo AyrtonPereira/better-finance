@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import App from "@/views/app/Index.vue";
+import AppDashboard from "@/views/app/Dashboard.vue";
 import Initiate from "@/views/initiate/Index.vue";
 import InitiateLogin from "@/views/initiate/Login.vue";
 import InitiateRegister from "@/views/initiate/Register.vue";
@@ -9,9 +10,19 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "app",
       meta: { requiresAuth: true },
       component: App,
+      redirect() {
+        return { name: "app.dashboard" };
+      },
+      children: [
+        {
+          path: "/dashboard",
+          name: "app.dashboard",
+          component: AppDashboard,
+        },
+      ],
     },
     {
       path: "/initiate",
