@@ -1,10 +1,10 @@
 <script setup>
 import { onMounted, computed } from "vue";
-import Header from "@/components/layout/Header.vue";
 import QuotationList from "@/components/finance/QuotationList.vue";
+import QuotationHistoryVue from "@/components/finance/QuotationHistory.vue";
 import store from "@/store";
-import Button from "@/components/base/Button.vue";
 import FinanceService from "@/service/FinanceService";
+
 FinanceService.initiateStore();
 
 const quotations = computed(() => {
@@ -20,7 +20,6 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <Header />
     <div class="p-4">
       <QuotationList
         v-if="quotations.currencies"
@@ -64,6 +63,7 @@ onMounted(() => {
           variation: 'variation',
         }"
       />
+      <QuotationHistoryVue />
     </div>
   </div>
 </template>
