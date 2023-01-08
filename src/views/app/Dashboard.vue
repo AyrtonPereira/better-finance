@@ -1,7 +1,6 @@
 <script setup>
-import { onMounted, computed } from "vue";
+import { onMounted, computed, reactive } from "vue";
 import QuotationList from "@/components/finance/QuotationList.vue";
-import QuotationHistoryVue from "@/components/finance/QuotationHistory.vue";
 import store from "@/store";
 import FinanceService from "@/service/FinanceService";
 
@@ -11,7 +10,7 @@ const quotations = computed(() => {
   return store.getters["finance/getQuotations"];
 });
 
-onMounted(() => {
+onMounted(async () => {
   FinanceService.getFinanceData();
   setInterval(() => {
     FinanceService.getFinanceData();
@@ -26,7 +25,7 @@ onMounted(() => {
         class="mb-3"
         title="Moedas"
         label="Cotações dos valores de moedas"
-        type="currency"
+        type="currencies"
         :lastUpdate="quotations.currencies[0].time"
         :quotationArray="quotations.currencies[0].data"
         :quotationObject="{
@@ -63,7 +62,6 @@ onMounted(() => {
           variation: 'variation',
         }"
       />
-      <QuotationHistoryVue />
     </div>
   </div>
 </template>

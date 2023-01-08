@@ -2,40 +2,45 @@
 import { onMounted } from "vue";
 import Chart from "chart.js/auto";
 
-onMounted(async () => {
-  (async function () {
-    const labels = ["janeiro", "fevereiro", "março"];
-    const data = {
-      labels: labels,
-      datasets: [
-        {
-          label: "Dataset 1",
-          data: [1, 20, 30, 12, 5, 3, 51, 20],
-          borderColor: "rgb(255, 99, 132)",
-          backgroundColor: "rgb(255,255,255)",
-        },
-      ],
-    };
+const props = defineProps({
+  labels: { type: Array, required: true },
+  values: { type: Array, required: true },
+  quotationType: { type: String, required: true },
+  description: { type: String, required: true },
+});
 
-    new Chart(document.getElementById("acquisitions"), {
-      type: "line",
-      data: data,
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "top",
-          },
-          title: {
-            display: true,
-            text: "Chart.js Line Chart",
-          },
+onMounted(async () => {
+  const data = {
+    labels: props.labels,
+    datasets: [
+      {
+        label: props.description,
+        data: props.values,
+        fill: false,
+        color: "#fff",
+      },
+    ],
+  };
+
+  new Chart(document.getElementById(`${props.quotationType}-chart`), {
+    type: "line",
+    data: data,
+    options: {
+      plugins: {
+        legend: {
+          position: "top",
         },
       },
-    });
-  })();
+      layout: {
+        padding: 8,
+      },
+    },
+  });
 });
 </script>
 <template>
-  <div style="width: 800px"><canvas id="acquisitions"></canvas></div>
+  <div class="flex w-full md:w-3/4 lg:w-1/2">
+    <canvas class="bg-white/90 rounded" :id="`${props.quotationType}-chart`">
+    </canvas>
+  </div>
 </template>
