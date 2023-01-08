@@ -35,7 +35,7 @@ const verifyLogin = async () => {
       <div>
         <img
           class="mx-auto h-12 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+          src="@/assets/logo.png"
           alt="Your Company"
         />
         <h2
