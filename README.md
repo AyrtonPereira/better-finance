@@ -6,6 +6,19 @@ Esta é uma aplicação de consulta a informações de moedas, ações e bitcoin
 - JOSE (validação de Token JWT)
 - HG Brasil (API de informações das cotações)
 
+## Execução da Aplicação em Ambiente Local
+Para executar a aplicação em ambiente local é muito simples, basta rodar os seguintes comandos.
+- `npm install`
+- `npm run dev`
+
+Obs.: É necessário criar o arquivo `.env` com os parâmetros:
+
+`VITE_API_KEY`: Chave `pessoal`, que pode ser adquirida de forma na gratuita na [HG Brasil](https://hgbrasil.com/).
+
+`VITE_API_URL`: https://api.hgbrasil.com/
+
+`VITE_API_SECRET_KEY`: Qualquer texto ou codificação para gerar o secret da autenticação do JWT.
+
 ## Login
 
 A tela de login é muito simples, basta inserir o seu `usuário` e `senha`.
