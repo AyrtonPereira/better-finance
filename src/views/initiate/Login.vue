@@ -4,19 +4,22 @@ import Input from "@/components/base/Input.vue";
 import { reactive, computed } from "vue";
 import UserService from "@/service/UserService";
 import route from "@/router";
+import yup from "@/utils/yup";
+import { Form, ErrorMessage } from "vee-validate";
+import { useNotification } from "@kyvg/vue3-notification";
 
 const state = reactive({
   email: "",
   password: "",
   loading: false,
   errorMessage: "",
+  validationSchema: {
+    password: yup.string().required().min(4),
+    email: yup.string().required().email(),
+  },
 });
 
-const canLogin = computed(() => {
-  return state.email !== "" && state.password !== "";
-});
-
-const verifyLogin = async () => {
+const onSubmit = async () => {
   state.loading = true;
   state.errorMessage = "";
 
@@ -47,7 +50,11 @@ const verifyLogin = async () => {
           Acompanhe cotações e finanças
         </p>
       </div>
-      <div class="mt-8 space-y-6">
+      <Form
+        class="mt-8 space-y-6"
+        @submit="onSubmit"
+        :validation-schema="state.validationSchema"
+      >
         <div class="-space-y-px rounded-md shadow-sm">
           <div class="mb-2">
             <label for="email-address" class="sr-only">Email</label>
@@ -60,6 +67,7 @@ const verifyLogin = async () => {
               required=""
               placeholder="E-mail"
             />
+            <ErrorMessage name="email" class="text-red-500" />
           </div>
           <div>
             <label for="password" class="sr-only">Password</label>
@@ -72,19 +80,16 @@ const verifyLogin = async () => {
               required=""
               placeholder="Senha"
             />
+            <ErrorMessage name="password" class="text-red-500" />
           </div>
         </div>
         <div class="text-red-500 text-center">
           <span>{{ state.errorMessage }}</span>
         </div>
         <div>
-          <Button
-            label="Entrar"
-            @click="verifyLogin"
-            :disabled="!canLogin || state.loading"
-          />
+          <Button label="Entrar" :disabled="state.loading" />
         </div>
-      </div>
+      </Form>
       <div class="flex items-start justify-center">
         <div class="text-sm">
           <router-link

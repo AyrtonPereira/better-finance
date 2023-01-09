@@ -1,16 +1,7 @@
-import * as jose from "jose";
-
 export default {
   namespaced: true,
   state: {
-    users: [
-      {
-        name: "Ayrton",
-        email: "ayrton_pereira@live.com",
-        password: "1234",
-        token: null,
-      },
-    ],
+    users: [{}],
     userLogged: {},
   },
   mutations: {
@@ -21,13 +12,20 @@ export default {
       if (userIndex === -1) state.users = [...state.users, user];
       else state.users[userIndex] = user;
     },
+    setUserLogged(state, userLogged) {
+      state.userLogged = userLogged;
+    },
   },
   actions: {
-    updateUser({ commit, state }, user) {
+    updateUser({ commit }, user) {
       commit("setUser", user);
+    },
+    userLogged({ commit }, user) {
+      commit("setUserLogged", user);
     },
   },
   getters: {
     getUsers: (state) => state.users,
+    getUserLogged: (state) => state.userLogged,
   },
 };

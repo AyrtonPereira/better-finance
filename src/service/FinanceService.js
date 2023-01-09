@@ -46,7 +46,6 @@ class FinanceService {
         history.values.unshift(quotation.variation);
       }
     }
-    console.log(history);
     return history;
   }
 }
