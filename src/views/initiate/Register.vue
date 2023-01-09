@@ -4,7 +4,7 @@ import Input from "@/components/base/Input.vue";
 import { reactive, computed } from "vue";
 import UserService from "@/service/UserService";
 import route from "@/router";
-import yup from "@/utils/yup";
+import yup from "@/utils/Yup";
 import { Form, ErrorMessage } from "vee-validate";
 import { useNotification } from "@kyvg/vue3-notification";
 
