@@ -13,9 +13,10 @@ class UserService {
     if (!userExists.data)
       return { data: false, message: "Usuário não localizado" };
     if (userExists.user.password === password) {
-      const token = await Auth.createToken(userExists.user);
-      userExists.user.token = token;
-      store.dispatch("user/updateUser", userExists.user);
+      const { password, ...userData } = userExists.user;
+      const token = await Auth.createToken(userData);
+      userData.token = token;
+      store.dispatch("user/userLogged", userData);
       return { data: true };
     } else return { data: false, message: "Senha incorreta" };
   }
