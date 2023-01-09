@@ -1,14 +1,7 @@
 export default {
   namespaced: true,
   state: {
-    users: [
-      {
-        name: "Ayrton",
-        email: "ayrton_pereira@live.com",
-        password: "1234",
-        token: null,
-      },
-    ],
+    users: [{}],
     userLogged: {},
   },
   mutations: {
