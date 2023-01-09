@@ -8,7 +8,7 @@ const props = defineProps({
   title: { type: String, required: true },
   label: { type: String, required: true },
   type: { type: String, required: true },
-  quotationArray: { type: Array, required: true },
+  quotationArray: { type: Object, required: true },
   quotationObject: { type: Object, required: true },
   lastUpdate: { type: String, required: true },
 });
@@ -39,11 +39,11 @@ const seeQuotationHistory = async (name) => {
       <div v-if="props.quotationArray" class="flex flex-wrap justify-center">
         <Quotation
           v-for="(quotation, name) in props.quotationArray"
-          v-key="quotation[quotationObject.name]"
+          :key="`${name}-${props.type}`"
           :name="quotation[quotationObject.name]"
           :value="quotation[quotationObject.value]"
           :variation="quotation[quotationObject.variation]"
-          :coin="quotation.format || ''"
+          :coin="quotation.format || []"
           class="mx-2 my-2 w-48"
           :type="props.type"
           @clicked="seeQuotationHistory(name)"
@@ -59,6 +59,7 @@ const seeQuotationHistory = async (name) => {
     <div class="flex justify-center my-3">
       <QuotationHistoryVue
         v-if="state.history.values"
+        :key="`${props.type}-history-chart`"
         :quotationType="props.type"
         :description="state.history.name"
         :labels="state.history.time"

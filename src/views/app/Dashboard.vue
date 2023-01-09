@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, computed, reactive } from "vue";
+import { onMounted, computed } from "vue";
 import QuotationList from "@/components/finance/QuotationList.vue";
 import store from "@/store";
 import FinanceService from "@/service/FinanceService";
@@ -10,11 +10,22 @@ const quotations = computed(() => {
   return store.getters["finance/getQuotations"];
 });
 
+const filterQuotations = (quotationList) => {
+  const listKeys = Object.keys(quotationList);
+  const newQuotationList = {};
+
+  for (const quotation of listKeys) {
+    if (quotationList[quotation].name)
+      newQuotationList[quotation] = quotationList[quotation];
+  }
+  return newQuotationList;
+};
+
 onMounted(async () => {
   FinanceService.getFinanceData();
   setInterval(() => {
     FinanceService.getFinanceData();
-  }, 100000);
+  }, 120000);
 });
 </script>
 <template>
@@ -27,7 +38,7 @@ onMounted(async () => {
         label="Cotações dos valores de moedas"
         type="currencies"
         :lastUpdate="quotations.currencies[0].time"
-        :quotationArray="quotations.currencies[0].data"
+        :quotationArray="filterQuotations(quotations.currencies[0].data)"
         :quotationObject="{
           name: 'name',
           value: 'buy',
@@ -41,7 +52,7 @@ onMounted(async () => {
         label="Veja as bases de ações ao redor do mundo"
         type="stocks"
         :lastUpdate="quotations.stocks[0].time"
-        :quotationArray="quotations.stocks[0].data"
+        :quotationArray="filterQuotations(quotations.stocks[0].data)"
         :quotationObject="{
           name: 'name',
           value: 'points',
@@ -55,7 +66,7 @@ onMounted(async () => {
         label="Veja as cotações de Bitcoin"
         type="bitcoin"
         :lastUpdate="quotations.bitcoin[0].time"
-        :quotationArray="quotations.bitcoin[0].data"
+        :quotationArray="filterQuotations(quotations.bitcoin[0].data)"
         :quotationObject="{
           name: 'name',
           value: 'last',

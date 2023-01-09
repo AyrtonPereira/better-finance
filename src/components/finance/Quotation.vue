@@ -5,7 +5,7 @@ const props = defineProps({
   variation: { type: Number, required: true },
   value: { type: Number, required: true },
   type: { type: String, required: true },
-  coin: { type: String },
+  coin: { type: Array },
 });
 
 const variationType = computed(() => {
@@ -17,13 +17,11 @@ const valueParsed = computed(() => {
 });
 
 const coinUsed = computed(() => {
-  console.log("coin", props.coin);
   return props.type == "bitcoin" ? props.coin[0] : "R$";
 });
 </script>
 <template>
   <div
-    v-if="props.name"
     class="flex flex-col items-center text-white bg-black/70 rounded py-2 px-4 text-center justify-around cursor-pointer hover:shadow-2xl hover:bg-black/80 transition-all"
     @click="$emit('clicked')"
   >
