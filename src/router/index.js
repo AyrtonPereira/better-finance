@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import UserService from "../service/UserService";
 import App from "@/views/app/Index.vue";
 import AppDashboard from "@/views/app/Dashboard.vue";
 import Initiate from "@/views/initiate/Index.vue";
@@ -45,15 +46,23 @@ const router = createRouter({
         },
       ],
     },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
-    },
   ],
+});
+
+router.beforeEach(async (to, from, next) => {
+  const isLogged = await UserService.verifyToken();
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!isLogged) next({ name: "initiate.login" });
+    return next();
+  }
+
+  if (to.matched.some((record) => record.meta.hideForAuth)) {
+    if (isLogged) next({ name: "app.dashboard" });
+    else {
+      return next();
+    }
+  }
+  return false;
 });
 
 export default router;

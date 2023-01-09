@@ -1,4 +1,5 @@
 import store from "@/store";
+import router from "@/router";
 import Auth from "@/utils/Auth";
 
 class UserService {
@@ -19,6 +20,18 @@ class UserService {
       store.dispatch("user/userLogged", userData);
       return { data: true };
     } else return { data: false, message: "Senha incorreta" };
+  }
+
+  logout() {
+    store.dispatch("user/userLogged", {});
+    router.push({ name: "initiate.login" });
+  }
+
+  async verifyToken() {
+    const userLogged = store.getters["user/getUserLogged"];
+    if (!userLogged.token) return false;
+    const tokenValid = await Auth.verifyTokenExpiration(userLogged.token);
+    return tokenValid;
   }
 
   async createUser(user) {
